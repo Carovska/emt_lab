@@ -25,7 +25,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation,Lon
             "FROM Accommodation a JOIN a.host h JOIN h.country c")
     List<AccommodationExtendedView> findAllExtendedView();
 
-    @EntityGraph(value = "Accommodation.withHostAndCountry", type = EntityGraph.EntityGraphType.FETCH)
-    List<Accommodation> findAllBy();
-
+//    @EntityGraph(value = "Accommodation.withHostAndCountry", type = EntityGraph.EntityGraphType.FETCH)
+//    List<Accommodation> findAllBy();
 }

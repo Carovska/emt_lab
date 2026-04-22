@@ -49,4 +49,10 @@ public class HostServiceImpl implements HostService {
         host.ifPresent(hostRepository::delete);
         return host;
     }
+
+//    @Override
+//    public Optional<Host> addHost(Long id) {
+//        Optional<Host> host=hostRepository.findById(id);
+//        return hostRepository.save(host);
+//    }
 }

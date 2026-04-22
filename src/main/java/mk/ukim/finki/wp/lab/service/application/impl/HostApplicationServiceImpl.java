@@ -4,6 +4,8 @@ import mk.ukim.finki.wp.lab.model.domain.Country;
 import mk.ukim.finki.wp.lab.model.dto.CreateHostDto;
 import mk.ukim.finki.wp.lab.model.dto.DisplayHostDto;
 import mk.ukim.finki.wp.lab.model.exception.HostNotFound;
+import mk.ukim.finki.wp.lab.model.projection.HostCountryProjection;
+import mk.ukim.finki.wp.lab.repository.HostRepository;
 import mk.ukim.finki.wp.lab.service.application.HostApplicationService;
 import mk.ukim.finki.wp.lab.service.domain.CountryService;
 import mk.ukim.finki.wp.lab.service.domain.HostService;
@@ -16,10 +18,12 @@ import java.util.Optional;
 public class HostApplicationServiceImpl implements HostApplicationService {
     private final HostService hostService;
     private final CountryService countryService;
+    private final HostRepository hostRepository;
 
-    public HostApplicationServiceImpl(HostService hostService,CountryService countryService){
+    public HostApplicationServiceImpl(HostService hostService, CountryService countryService, HostRepository hostRepository){
         this.hostService=hostService;
         this.countryService=countryService;
+        this.hostRepository = hostRepository;
     }
 
     @Override
@@ -47,5 +51,10 @@ public class HostApplicationServiceImpl implements HostApplicationService {
     @Override
     public Optional<DisplayHostDto> deleteById(Long id) {
         return hostService.deleteById(id).map(DisplayHostDto::from);
+    }
+
+    @Override
+    public List<HostCountryProjection> getHostCountry() {
+        return hostRepository.findHostCountPerCountry();
     }
 }

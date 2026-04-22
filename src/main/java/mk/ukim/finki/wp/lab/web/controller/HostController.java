@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.lab.web.controller;
 import jakarta.validation.Valid;
 import mk.ukim.finki.wp.lab.model.dto.CreateHostDto;
 import mk.ukim.finki.wp.lab.model.dto.DisplayHostDto;
+import mk.ukim.finki.wp.lab.model.projection.HostCountryProjection;
 import mk.ukim.finki.wp.lab.service.application.HostApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,4 +51,10 @@ public class HostController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/statistic")
+    public ResponseEntity<List<HostCountryProjection>> getHostCountPerCountry() {
+        return ResponseEntity.ok(hostApplicationService.getHostCountry());
+    }
+
 }
